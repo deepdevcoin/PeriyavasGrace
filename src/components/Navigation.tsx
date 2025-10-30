@@ -45,10 +45,6 @@ const Navigation = () => {
         <p className="text-xs text-gray-500 truncate">{user?.email}</p>
       </div>
       <div className="py-2">
-        <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
-          <User size={16} />
-          Profile Settings
-        </button>
         <button
           onClick={() => {
             signOutUser();
@@ -63,7 +59,6 @@ const Navigation = () => {
       </div>
     </div>
   );
-console.log("User object:", user);
 
   return (
     <>
@@ -95,6 +90,8 @@ console.log("User object:", user);
                   <button
                     onClick={() => setProfileMenuOpen(!profileMenuOpen)}
                     className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                    aria-label="User menu"
+                    aria-expanded={profileMenuOpen}
                   >
                     {user.photoURL ? (
                       <img
@@ -113,6 +110,7 @@ console.log("User object:", user);
                     <div
                       className="fixed inset-0 z-40"
                       onClick={() => setProfileMenuOpen(false)}
+                      aria-hidden="true"
                     />
                   )}
                 </div>
@@ -130,12 +128,14 @@ console.log("User object:", user);
             <button
               className="lg:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
-          {/* Mobile Nav */}
+          {/* Mobile Nav Dropdown */}
           {mobileMenuOpen && (
             <div className="lg:hidden py-4 space-y-2 animate-slide-up">
               {navLinks.map((link) => (
@@ -178,7 +178,10 @@ console.log("User object:", user);
                       </div>
                     </div>
                     <Button
-                      onClick={signOutUser}
+                      onClick={() => {
+                        signOutUser();
+                        setMobileMenuOpen(false);
+                      }}
                       disabled={loading}
                       variant="outline"
                       className="w-full"
@@ -201,7 +204,29 @@ console.log("User object:", user);
         </div>
       </nav>
 
-      {/* MOVE MODAL OUTSIDE NAVBAR */}
+      {/* Bottom Navigation on small devices */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 md:hidden">
+        <div className="flex justify-around items-center h-14 px-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex flex-col items-center justify-center text-xs font-semibold transition-colors"
+            >
+              <span
+                className={`${
+                  location.pathname === link.path ? "text-primary" : "text-gray-600"
+                }`}
+              >
+                {link.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </nav>
+
+      {/* MODELS OUTSIDE NAV */}
       {authModalOpen && <AuthModal onClose={() => setAuthModalOpen(false)} />}
     </>
   );
