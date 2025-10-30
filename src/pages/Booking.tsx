@@ -1,4 +1,6 @@
-import { useState } from "react";
+// src/pages/Booking.tsx
+
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -13,7 +15,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+
+import { auth, db, googleProvider } from "@/firebaseConfig"; // add auth, googleProvider exports to your firebaseConfig.ts
+import {
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Booking = () => {
   const { toast } = useToast();
@@ -26,6 +35,20 @@ const Booking = () => {
     service: "",
   });
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      if (u) {
+        setFormData((prev) => ({
+          ...prev,
+          email: u.email || "",
+          fullName: u.displayName || "",
+        }));
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   const services = [
     "Spiritual Guidance (Arulvakku)",
     "Jaathagam Writing",
@@ -37,24 +60,37 @@ const Booking = () => {
   const handleGoogleSignIn = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/booking`,
-        },
-      });
-
-      if (error) throw error;
-
+      await signInWithPopup(auth, googleProvider);
       toast({
-        title: "Signing in...",
-        description: "Please complete the sign-in process",
+        title: "Signed in",
+        description: "You are signed in with Google",
       });
     } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error.message || "Failed to sign in with Google",
+        title: "Sign-in Failed",
+        description: error.message || "Google sign-in failed",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      setLoading(true);
+      await signOut(auth);
+      setUser(null);
+      setFormData({ fullName: "", email: "", phone: "", service: "" });
+      toast({
+        title: "Signed out",
+        description: "You have signed out.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Sign-out Failed",
+        description: error.message || "Sign-out failed",
       });
     } finally {
       setLoading(false);
@@ -75,24 +111,20 @@ const Booking = () => {
 
     try {
       setLoading(true);
-
-      // Call edge function to save to Google Sheets
-      const { error } = await supabase.functions.invoke("save-booking", {
-        body: {
-          ...formData,
-          timestamp: new Date().toISOString(),
-          googleSignIn: user ? "Yes" : "No",
-        },
+      await addDoc(collection(db, "bookings"), {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        timestamp: serverTimestamp(),
+        googleSignIn: user ? "Yes" : "No",
       });
-
-      if (error) throw error;
 
       toast({
         title: "Booking Submitted!",
         description: "We will contact you shortly to confirm your appointment.",
       });
 
-      // Reset form
       setFormData({
         fullName: "",
         email: "",
@@ -132,7 +164,7 @@ const Booking = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto">
               <Card className="p-8 shadow-warm">
-                {!user && (
+                {!user ? (
                   <div className="mb-8 text-center">
                     <p className="text-muted-foreground mb-4">
                       Sign in with Google to autofill your details
@@ -155,6 +187,20 @@ const Booking = () => {
                         </span>
                       </div>
                     </div>
+                  </div>
+                ) : (
+                  <div className="mb-8 text-center">
+                    <p className="text-muted-foreground mb-4">
+                      Signed in as {user.displayName || user.email}
+                    </p>
+                    <Button
+                      onClick={handleSignOut}
+                      variant="outline"
+                      disabled={loading}
+                      className="w-full sm:w-auto"
+                    >
+                      Sign out
+                    </Button>
                   </div>
                 )}
 
@@ -232,10 +278,12 @@ const Booking = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Or contact us directly for immediate assistance
                   </p>
-                  <a href="https://wa.me/918667711998" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline">
-                      WhatsApp: +91 86677 11998
-                    </Button>
+                  <a
+                    href="https://wa.me/918667711998"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline">WhatsApp: +91 86677 11998</Button>
                   </a>
                 </div>
               </Card>
