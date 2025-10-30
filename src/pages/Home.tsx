@@ -9,19 +9,16 @@ import { Sparkles, BookOpen, ShoppingBag } from "lucide-react";
 const Home = () => {
   const features = [
     {
-      icon: Sparkles,
       title: "Spiritual Guidance",
       description: "Personalized Arulvakku counseling to navigate life's challenges with divine wisdom",
       link: "/services",
     },
     {
-      icon: BookOpen,
       title: "Jaathagam Writing",
       description: "Detailed and accurate horoscope preparation with comprehensive planetary analysis",
       link: "/services",
     },
     {
-      icon: ShoppingBag,
       title: "Blessed Products",
       description: "Divine frames with 1 lakh mantra chanting to bring positive energy to your home",
       link: "/products",
@@ -71,7 +68,6 @@ const Home = () => {
                 className="p-8 shadow-warm hover:shadow-xl transition-all duration-300 animate-slide-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <feature.icon className="text-accent mb-4" size={48} />
                 <h3 className="text-2xl font-serif font-bold mb-4 text-primary">
                   {feature.title}
                 </h3>

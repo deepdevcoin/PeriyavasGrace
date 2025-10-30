@@ -3,118 +3,169 @@ import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Products = () => {
   const products = [
     {
       name: "Kamatchi Amman Frame",
-      description: "Beautifully framed image of Goddess Kamatchi Amman with chanting of 1 lakh mantras",
+      description:
+        "Elegant frame of Goddess Kamatchi Amman — infused with 1 lakh mantra blessings for peace and prosperity.",
       price: "₹5,000",
-      features: [
-        "High-quality frame with divine imagery",
-        "1 lakh mantra chanting performed",
-        "Blessed with positive spiritual energy",
-        "Brings prosperity and protection",
-        "Perfect for home or office worship",
-      ],
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
     },
     {
       name: "Muthu Maari Amman Frame",
-      description: "Divine image of Kulanthat Muthu Maari Amman with powerful mantra chanting",
+      description:
+        "Divine frame of Muthu Maari Amman, energized for spiritual protection and abundance.",
       price: "₹5,000",
-      features: [
-        "Premium quality frame",
-        "1 lakh mantra chanting performed",
-        "Energized with divine blessings",
-        "Provides protection and positive energy",
-        "Ideal for worship and meditation",
-      ],
+      image:
+        "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Durga Devi Frame",
+      description:
+        "Graceful frame of Goddess Durga — symbolizes strength and divine protection.",
+      price: "₹4,800",
+      image:
+        "https://images.unsplash.com/photo-1510414696678-2415ad8474aa?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Lakshmi Frame",
+      description:
+        "Goddess Lakshmi frame — brings wealth, harmony, and positive energy.",
+      price: "₹4,500",
+      image:
+        "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Murugan Frame",
+      description:
+        "Sacred Murugan frame — radiating courage and divine grace.",
+      price: "₹4,700",
+      image:
+        "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Shiva Parvati Frame",
+      description:
+        "Beautifully crafted Shiva Parvati frame — a symbol of balance and devotion.",
+      price: "₹5,200",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Venkateswara Frame",
+      description:
+        "Tirupati Balaji frame — brings prosperity, success, and divine blessings.",
+      price: "₹5,300",
+      image:
+        "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      name: "Ayyappan Frame",
+      description:
+        "Lord Ayyappan frame — symbolizes devotion, peace, and discipline.",
+      price: "₹4,900",
+      image:
+        "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
     },
   ];
 
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navigation />
 
       <main className="flex-1">
-        <section className="py-20 gradient-subtle">
+        {/* Hero Section */}
+        <section className="relative py-20 text-center bg-gradient-to-b from-accent/10 to-transparent">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center animate-fade-in">
-              <h1 className="text-5xl font-serif font-bold text-primary mb-6">
-                Blessed Products
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 className="text-5xl font-serif font-bold text-primary mb-4">
+                Blessed Frames Collection
               </h1>
-              <p className="text-xl text-muted-foreground">
-                Divine frames energized with 1 lakh mantra chanting
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Explore handcrafted divine frames, energized with sacred mantra
+                chanting for peace, devotion, and prosperity.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
+        {/* Product Grid */}
         <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <Card className="p-8 mb-12 shadow-warm bg-accent/10 border-accent">
-                <p className="text-lg text-center">
-                  <strong className="text-accent">Special Offering:</strong> All God and Goddess frames 
-                  available with 1 lakh mantra chanting as per your devotion
-                </p>
-              </Card>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {products.map((product, index) => (
-                  <Card
-                    key={index}
-                    className="p-8 shadow-warm hover:shadow-xl transition-all duration-300 animate-slide-up flex flex-col"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="aspect-square bg-muted rounded-lg mb-6 flex items-center justify-center">
-                      <span className="text-muted-foreground text-center px-4">
-                        Divine {product.name}
-                      </span>
+          <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+              {products.map((product, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.12 }}
+                >
+                  <Card className="overflow-hidden rounded-3xl border border-border hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+                    <div className="relative w-full aspect-square bg-muted">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="object-cover w-full h-full"
+                        loading="lazy"
+                      />
                     </div>
 
-                    <h2 className="text-2xl font-serif font-bold mb-3 text-primary">
-                      {product.name}
-                    </h2>
-                    <p className="text-muted-foreground mb-4">{product.description}</p>
+                    <div className="p-6 flex flex-col flex-1">
+                      <h2 className="text-2xl font-serif font-semibold text-primary mb-3">
+                        {product.name}
+                      </h2>
+                      <p className="text-base text-muted-foreground mb-6 flex-1 leading-relaxed">
+                        {product.description}
+                      </p>
 
-                    <div className="space-y-2 mb-6">
-                      {product.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-start space-x-2">
-                          <span className="text-accent mt-1">✓</span>
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-auto">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-3xl font-bold text-primary">{product.price}</span>
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
+                        <span className="text-xl font-bold text-primary">
+                          {product.price}
+                        </span>
+                        <Link to="/booking" aria-label={`Order ${product.name}`}>
+                          <Button
+                            size="sm"
+                            className="bg-primary hover:bg-primary/90"
+                          >
+                            Order
+                          </Button>
+                        </Link>
                       </div>
-                      <Link to="/booking">
-                        <Button size="lg" className="w-full bg-primary">
-                          Order Now
-                        </Button>
-                      </Link>
                     </div>
                   </Card>
-                ))}
-              </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-serif font-bold mb-6 text-primary">
-              Custom Divine Frames Available
+        {/* WhatsApp Contact */}
+        <section className="py-16 bg-muted/10 text-center">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-serif font-semibold text-primary mb-4">
+              Custom Divine Frames
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Looking for a specific deity frame? Contact us to discuss custom orders with 1 lakh mantra chanting
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+              Want a specific deity or custom design? Get in touch for a
+              personalized handcrafted frame energized with mantra chanting.
             </p>
-            <a href="https://wa.me/918667711998" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary">
-                Inquire via WhatsApp
+            <a
+              href="https://wa.me/918667711998"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                Contact via WhatsApp
               </Button>
             </a>
           </div>

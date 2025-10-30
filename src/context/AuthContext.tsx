@@ -1,9 +1,8 @@
+// AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { auth, googleProvider } from "@/firebaseConfig";
 import {
   signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   User,
@@ -13,8 +12,6 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   googleSignIn: () => Promise<void>;
-  emailSignIn: (email: string, password: string) => Promise<void>;
-  emailSignUp: (email: string, password: string) => Promise<void>;
   signOutUser: () => Promise<void>;
 }
 
@@ -46,24 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const emailSignIn = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const emailSignUp = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const signOutUser = async () => {
     setLoading(true);
     try {
@@ -75,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, googleSignIn, emailSignIn, emailSignUp, signOutUser }}
+      value={{ user, loading, googleSignIn, signOutUser }}
     >
       {children}
     </AuthContext.Provider>
