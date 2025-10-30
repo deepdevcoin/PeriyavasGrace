@@ -30,7 +30,7 @@ const Home = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 gradient-subtle">
+      <section className="relative py-20 text-center bg-gradient-to-b from-accent/10 to-transparent">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <h1 className="text-5xl lg:text-6xl font-serif font-bold text-primary mb-6">
@@ -96,11 +96,6 @@ const Home = () => {
                 WhatsApp: +91 86677 11998
               </Button>
             </a>
-            <Link to="/contact">
-              <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                Contact Us
-              </Button>
-            </Link>
           </div>
         </div>
       </section>

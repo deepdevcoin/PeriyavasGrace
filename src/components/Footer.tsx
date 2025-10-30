@@ -89,9 +89,6 @@ const Footer = () => {
               <Link to="/booking" className="block text-muted-foreground hover:text-primary transition-colors">
                 Book Consultation
               </Link>
-              <Link to="/contact" className="block text-muted-foreground hover:text-primary transition-colors">
-                Contact Us
-              </Link>
             </div>
           </div>
 

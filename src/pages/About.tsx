@@ -8,7 +8,7 @@ const About = () => {
       <Navigation />
 
       <main className="flex-1">
-        <section className="py-20 gradient-subtle">
+        <section className="relative py-20 text-center bg-gradient-to-b from-accent/10 to-transparent">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in">
               <h1 className="text-5xl font-serif font-bold text-primary mb-6">
@@ -29,13 +29,13 @@ const About = () => {
                   Our Mission
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  At Periyava's Grace by Lavanya, we are dedicated to providing authentic spiritual guidance 
-                  and astrological services rooted in ancient Vedic traditions. Our mission is to help individuals 
+                  At Periyava's Grace by Lavanya, we are dedicated to providing authentic spiritual guidance
+                  and astrological services rooted in ancient Vedic traditions. Our mission is to help individuals
                   navigate life's challenges through divine wisdom and personalized counseling.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  We believe in the transformative power of spiritual practices, accurate astrological insights, 
-                  and the divine energy of blessed products. Each service we offer is designed to bring peace, 
+                  We believe in the transformative power of spiritual practices, accurate astrological insights,
+                  and the divine energy of blessed products. Each service we offer is designed to bring peace,
                   prosperity, and positive transformation into your life.
                 </p>
               </Card>
@@ -50,7 +50,7 @@ const About = () => {
                       Spiritual Guidance (Arulvakku)
                     </h3>
                     <p className="text-muted-foreground">
-                      Personalized spiritual counseling that helps you navigate life's challenges with divine wisdom. 
+                      Personalized spiritual counseling that helps you navigate life's challenges with divine wisdom.
                       Receive guidance on prayers, rituals, and lifestyle adjustments tailored to your specific needs.
                     </p>
                   </div>
@@ -60,8 +60,8 @@ const About = () => {
                       Jaathagam Writing (Horoscope)
                     </h3>
                     <p className="text-muted-foreground">
-                      Detailed and accurate horoscope preparation with comprehensive analysis of planetary positions, 
-                      nakshatras, and personalized remedies for various life aspects including career, health, 
+                      Detailed and accurate horoscope preparation with comprehensive analysis of planetary positions,
+                      nakshatras, and personalized remedies for various life aspects including career, health,
                       relationships, and wealth.
                     </p>
                   </div>
@@ -71,8 +71,8 @@ const About = () => {
                       Blessed Products
                     </h3>
                     <p className="text-muted-foreground">
-                      Beautifully framed divine images energized with 1 lakh mantra chanting. Each frame is personally 
-                      blessed and infused with positive spiritual energy to transform your home's atmosphere and bring 
+                      Beautifully framed divine images energized with 1 lakh mantra chanting. Each frame is personally
+                      blessed and infused with positive spiritual energy to transform your home's atmosphere and bring
                       divine grace into your daily life.
                     </p>
                   </div>

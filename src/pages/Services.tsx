@@ -38,7 +38,7 @@ const Services = () => {
       <Navigation />
 
       <main className="flex-1">
-        <section className="py-20 gradient-subtle">
+        <section className="relative py-20 text-center bg-gradient-to-b from-accent/10 to-transparent">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in">
               <h1 className="text-5xl font-serif font-bold text-primary mb-6">
@@ -92,19 +92,21 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-serif font-bold mb-6 text-primary">
+            <h2 className="text-4xl font-serif font-bold mb-6">
               Have Questions About Our Services?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl mb-8 opacity-90">
               Contact us directly via WhatsApp for personalized consultation and service details
             </p>
-            <a href="https://wa.me/918667711998" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary">
-                WhatsApp: +91 86677 11998
-              </Button>
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="https://wa.me/918667711998" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="secondary" className="text-lg px-8">
+                  WhatsApp: +91 86677 11998
+                </Button>
+              </a>
+            </div>
           </div>
         </section>
       </main>

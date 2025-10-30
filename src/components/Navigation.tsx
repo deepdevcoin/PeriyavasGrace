@@ -18,9 +18,7 @@ const Navigation = () => {
     { name: "Products", path: "/products" },
     { name: "Services", path: "/services" },
     { name: "About", path: "/about" },
-    // { name: "Divine Experiences", path: "/testimonials" },
     { name: "Book Consultation", path: "/booking" },
-    // { name: "Contact", path: "/contact" },
   ];
 
   const getUserInitials = () => {

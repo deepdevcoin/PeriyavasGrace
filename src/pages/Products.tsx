@@ -8,14 +8,6 @@ import { motion } from "framer-motion";
 const Products = () => {
   const products = [
     {
-      name: "Kamatchi Amman Frame",
-      description:
-        "Elegant frame of Goddess Kamatchi Amman — infused with 1 lakh mantra blessings for peace and prosperity.",
-      price: "₹5,000",
-      image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
-    },
-    {
       name: "Muthu Maari Amman Frame",
       description:
         "Divine frame of Muthu Maari Amman, energized for spiritual protection and abundance.",
@@ -38,14 +30,6 @@ const Products = () => {
       price: "₹4,500",
       image:
         "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      name: "Murugan Frame",
-      description:
-        "Sacred Murugan frame — radiating courage and divine grace.",
-      price: "₹4,700",
-      image:
-        "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
     },
     {
       name: "Shiva Parvati Frame",
