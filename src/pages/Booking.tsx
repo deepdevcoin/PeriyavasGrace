@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail, Phone, User, Calendar } from "lucide-react";
 
 const Booking = () => {
   const { toast } = useToast();
@@ -77,6 +76,7 @@ const Booking = () => {
     try {
       setLoading(true);
 
+      // Call edge function to save to Google Sheets
       const { error } = await supabase.functions.invoke("save-booking", {
         body: {
           ...formData,
@@ -88,10 +88,11 @@ const Booking = () => {
       if (error) throw error;
 
       toast({
-        title: "Booking Submitted Successfully! 🙏",
+        title: "Booking Submitted!",
         description: "We will contact you shortly to confirm your appointment.",
       });
 
+      // Reset form
       setFormData({
         fullName: "",
         email: "",
@@ -110,69 +111,56 @@ const Booking = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-muted/20">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
 
       <main className="flex-1">
-        <section className="py-20">
+        <section className="py-20 gradient-subtle">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center mb-12 animate-fade-in">
-              <div className="inline-block mb-6 px-6 py-2 bg-accent/20 backdrop-blur-sm rounded-full border border-accent/30">
-                <span className="text-accent font-semibold">✨ Schedule Your Consultation</span>
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-serif font-bold text-primary mb-6">
-                Book Your Divine Consultation
+            <div className="max-w-4xl mx-auto text-center animate-fade-in">
+              <h1 className="text-5xl font-serif font-bold text-primary mb-6">
+                Book Your Consultation
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Begin your spiritual journey with personalized guidance and divine blessings
+              <p className="text-xl text-muted-foreground">
+                Connect with divine wisdom and begin your spiritual journey
               </p>
             </div>
           </div>
         </section>
 
-        <section className="pb-20">
+        <section className="py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto">
-              <Card className="p-8 lg:p-12 shadow-warm hover-lift bg-card/50 backdrop-blur-sm border-2 animate-scale-in">
+            <div className="max-w-2xl mx-auto">
+              <Card className="p-8 shadow-warm">
                 {!user && (
-                  <div className="mb-10 text-center">
-                    <p className="text-muted-foreground mb-6 text-lg">
-                      Sign in with Google to autofill your details instantly
+                  <div className="mb-8 text-center">
+                    <p className="text-muted-foreground mb-4">
+                      Sign in with Google to autofill your details
                     </p>
                     <Button
                       onClick={handleGoogleSignIn}
                       variant="outline"
-                      size="lg"
                       disabled={loading}
-                      className="w-full sm:w-auto px-8 py-6 text-lg border-2 hover-lift"
+                      className="w-full sm:w-auto"
                     >
-                      <svg className="mr-3" width="20" height="20" viewBox="0 0 20 20">
-                        <path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/>
-                        <path fill="#34A853" d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"/>
-                        <path fill="#FBBC05" d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 000 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"/>
-                        <path fill="#EA4335" d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"/>
-                      </svg>
                       Sign in with Google
                     </Button>
-                    <div className="relative my-8">
+                    <div className="relative my-6">
                       <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t-2 border-border" />
+                        <span className="w-full border-t" />
                       </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="bg-card px-4 text-muted-foreground font-medium">
-                          Or fill the form manually
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-card px-2 text-muted-foreground">
+                          Or fill manually
                         </span>
                       </div>
                     </div>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="space-y-2">
-                    <Label htmlFor="fullName" className="text-base flex items-center gap-2">
-                      <User size={18} className="text-accent" />
-                      Full Name *
-                    </Label>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <Label htmlFor="fullName">Full Name *</Label>
                     <Input
                       id="fullName"
                       value={formData.fullName}
@@ -180,16 +168,11 @@ const Booking = () => {
                         setFormData({ ...formData, fullName: e.target.value })
                       }
                       required
-                      className="h-12 text-lg border-2"
-                      placeholder="Enter your full name"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-base flex items-center gap-2">
-                      <Mail size={18} className="text-accent" />
-                      Email Address *
-                    </Label>
+                  <div>
+                    <Label htmlFor="email">Email Address *</Label>
                     <Input
                       id="email"
                       type="email"
@@ -198,16 +181,11 @@ const Booking = () => {
                         setFormData({ ...formData, email: e.target.value })
                       }
                       required
-                      className="h-12 text-lg border-2"
-                      placeholder="your.email@example.com"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-base flex items-center gap-2">
-                      <Phone size={18} className="text-accent" />
-                      Phone Number *
-                    </Label>
+                  <div>
+                    <Label htmlFor="phone">Phone Number *</Label>
                     <Input
                       id="phone"
                       type="tel"
@@ -216,28 +194,23 @@ const Booking = () => {
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       required
-                      className="h-12 text-lg border-2"
-                      placeholder="+91 XXXXX XXXXX"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="service" className="text-base flex items-center gap-2">
-                      <Calendar size={18} className="text-accent" />
-                      Service Required *
-                    </Label>
+                  <div>
+                    <Label htmlFor="service">Service Required *</Label>
                     <Select
                       value={formData.service}
                       onValueChange={(value) =>
                         setFormData({ ...formData, service: value })
                       }
                     >
-                      <SelectTrigger className="h-12 text-lg border-2">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select a service" />
                       </SelectTrigger>
                       <SelectContent>
                         {services.map((service) => (
-                          <SelectItem key={service} value={service} className="text-lg">
+                          <SelectItem key={service} value={service}>
                             {service}
                           </SelectItem>
                         ))}
@@ -247,20 +220,20 @@ const Booking = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-primary text-lg h-14 shadow-warm hover-lift"
+                    className="w-full bg-primary"
+                    size="lg"
                     disabled={loading}
                   >
-                    {loading ? "Submitting..." : "Submit Booking Request"}
+                    {loading ? "Submitting..." : "Submit Booking"}
                   </Button>
                 </form>
 
-                <div className="mt-10 pt-10 border-t-2 border-border text-center">
-                  <p className="text-muted-foreground mb-6 text-lg">
-                    Prefer to connect directly?
+                <div className="mt-8 pt-8 border-t border-border text-center">
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Or contact us directly for immediate assistance
                   </p>
                   <a href="https://wa.me/918667711998" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="lg" className="px-8 py-6 border-2 hover-lift">
-                      <Phone className="mr-2" size={20} />
+                    <Button variant="outline">
                       WhatsApp: +91 86677 11998
                     </Button>
                   </a>
