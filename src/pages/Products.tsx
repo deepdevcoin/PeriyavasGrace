@@ -1,8 +1,9 @@
+// src/pages/Products.tsx
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Products = () => {
@@ -11,7 +12,8 @@ const Products = () => {
       name: "Muthu Maari Amman Frame",
       description:
         "Divine frame of Muthu Maari Amman, energized for spiritual protection and abundance.",
-      price: "₹5,000",
+      price: 30, // INR
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80",
     },
@@ -19,7 +21,8 @@ const Products = () => {
       name: "Durga Devi Frame",
       description:
         "Graceful frame of Goddess Durga — symbolizes strength and divine protection.",
-      price: "₹4,800",
+      price: 25,
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1510414696678-2415ad8474aa?auto=format&fit=crop&w=800&q=80",
     },
@@ -27,7 +30,8 @@ const Products = () => {
       name: "Lakshmi Frame",
       description:
         "Goddess Lakshmi frame — brings wealth, harmony, and positive energy.",
-      price: "₹4,500",
+      price: 40,
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80",
     },
@@ -35,7 +39,8 @@ const Products = () => {
       name: "Shiva Parvati Frame",
       description:
         "Beautifully crafted Shiva Parvati frame — a symbol of balance and devotion.",
-      price: "₹5,200",
+      price: 50,
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
     },
@@ -43,7 +48,8 @@ const Products = () => {
       name: "Venkateswara Frame",
       description:
         "Tirupati Balaji frame — brings prosperity, success, and divine blessings.",
-      price: "₹5,300",
+      price: 45,
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c?auto=format&fit=crop&w=800&q=80",
     },
@@ -51,12 +57,12 @@ const Products = () => {
       name: "Ayyappan Frame",
       description:
         "Lord Ayyappan frame — symbolizes devotion, peace, and discipline.",
-      price: "₹4,900",
+      price: 20,
+      paymentLink: "https://rzp.io/rzp/FIS6MJl",
       image:
         "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80",
     },
   ];
-
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -75,8 +81,7 @@ const Products = () => {
                 Blessed Frames Collection
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Explore handcrafted divine frames, energized with sacred mantra
-                chanting for peace, devotion, and prosperity.
+                Explore handcrafted divine frames, energized with sacred mantra chanting for peace, devotion, and prosperity.
               </p>
             </motion.div>
           </div>
@@ -113,17 +118,17 @@ const Products = () => {
                       </p>
 
                       <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
-                        <span className="text-xl font-bold text-primary">
-                          {product.price}
-                        </span>
-                        <Link to="/booking" aria-label={`Order ${product.name}`}>
-                          <Button
-                            size="sm"
-                            className="bg-primary hover:bg-primary/90"
-                          >
-                            Order
+                        <span className="text-xl font-bold text-primary">{product.price}₹</span>
+                        <a
+                          href={product.paymentLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Pay for ${product.name}`}
+                        >
+                          <Button size="sm" className="bg-primary hover:bg-primary/90">
+                            Pay {product.price}₹
                           </Button>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </Card>
@@ -140,8 +145,7 @@ const Products = () => {
               Custom Divine Frames
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-              Want a specific deity or custom design? Get in touch for a
-              personalized handcrafted frame energized with mantra chanting.
+              Want a specific deity or custom design? Get in touch for a personalized handcrafted frame energized with mantra chanting.
             </p>
             <a
               href="https://wa.me/918667711998"
